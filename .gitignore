@@ -1,0 +1,10 @@
+.venv/
+data/
+output/
+*.csv
+*.parquet
+__pycache__/
+target/
+logs/
+profiles.yml
+.env
