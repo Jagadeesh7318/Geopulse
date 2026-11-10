@@ -3,4 +3,3 @@ pandas
 pyspark==3.5.1
 apache-sedona==1.6.1
 dbt-snowflake
-# apache-airflow   # Week 4 only. It doesn't install on Windows, so use WSL or Docker for it.
