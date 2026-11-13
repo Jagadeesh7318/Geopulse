@@ -22,3 +22,18 @@ def main(a):
         "lat":s_pts[:, 0],
         "lon":s_pts[:,1],
      })
+    stores.to_csv(out/"stores.csv",index=False)
+    home =res_centers[rng.integers(0, len(res_centers),a.devices)] + rng.normal(0,0.01,(a.devices,2))
+    work = work_centers[rng.integers(0, len(work_centers),a.devices)]+rng.normal(0,0.004,(a.devices, 2))
+    w=np.full(24,0.5)
+    w[7:10]=[4,6,4]
+    w[12:14]=3
+    w[17:20]=[4,6,4]
+    w/=w.sum()
+
+    dev = rng.integers(0,a.devices,a.pings)
+    day = rng.integers(0,a.days,a.pings)
+    hour = rng.choice(24,size=a.pings,p=w)
+    minutes = rng.integers(0,60,a.pings)
+    second = rng.integers(0, 60,a.pings)
+    frac =hour + minute/60
