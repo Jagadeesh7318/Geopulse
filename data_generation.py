@@ -34,6 +34,18 @@ def main(a):
     dev = rng.integers(0,a.devices,a.pings)
     day = rng.integers(0,a.days,a.pings)
     hour = rng.choice(24,size=a.pings,p=w)
-    minutes = rng.integers(0,60,a.pings)
+    minute = rng.integers(0,60,a.pings)
     second = rng.integers(0, 60,a.pings)
     frac =hour + minute/60
+
+    H,W =home[dev], work[dev]
+    pos = H.copy
+    morning =(frac >= 7) & (frac < 10)
+    midday = (frac >= 10) & (frac < 17)
+    evening = (frac >=17) & (frac < 20)
+    t_m =((frac -7)/3)[:,None]
+    t_e = ((frac - 17)/3)[:,None]
+    pos = np.where(morning[:,None],H +t_m *(W-H),pos)
+    pos = np.where(midday[:,None],W,pos)
+    pos = np.where(evening[:,None],W +t_e  * (H-W),pos)
+    pos = pos + rng.normal(0,0.007,pos.shape)#~80 m GPS noise
