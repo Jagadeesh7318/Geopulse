@@ -49,3 +49,15 @@ def main(a):
     pos = np.where(midday[:,None],W,pos)
     pos = np.where(evening[:,None],W +t_e  * (H-W),pos)
     pos = pos + rng.normal(0,0.007,pos.shape)#~80 m GPS noise
+
+    base = pd.timestamp(a.start)
+    secs = day * 86400 + hour * 3600 + minute * 60 +second
+    pings = pd.DataFrame({
+        "device_id": np.char.add("D",np.char.zfill(dev.astype(str),6)),
+        "lat":pos[:,0].round(6)
+        "lon":pos[:,1].round(6),
+        "ping_ts":base +pd.to_timedelta(secs,unit="s"),
+
+     })
+    pings.to_csv(out/"pings.csv",index=False)
+    print(f"Wrote {len(pings):,} pings and {len(stores)} stores to {out}/")
