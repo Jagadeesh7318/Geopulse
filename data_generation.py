@@ -61,3 +61,13 @@ def main(a):
      })
     pings.to_csv(out/"pings.csv",index=False)
     print(f"Wrote {len(pings):,} pings and {len(stores)} stores to {out}/")
+if_name_=="_main_":
+  p=argparse.ArgumentsParser()
+  p.add_argument("--devices",type=int,default=2000)
+  p.add_argument("--pings",type=int,default=2_000_000)
+  p.add_argument("--stores",type=int,default=100)
+  p.add_argument("--days",type=int,default=7)
+  p.add_argument("--start",default="2026-11-01")
+  p.add_argument("--seed",type=int,default=42)
+  p.add_argument("--out",default="data")
+  main(p.parse_args())
