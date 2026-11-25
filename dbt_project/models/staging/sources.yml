@@ -5,3 +5,4 @@ sources:
     schema: RAW
     tables:
       - name: store_visits
+      - name: raw_pings
